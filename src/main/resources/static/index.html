@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoubtDrop — Ask freely. Learn together.</title>
+  <meta name="description" content="A safer space for college students to ask academic doubts anonymously, upvote common questions, and receive instructor answers.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✦</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon">✦</div>
+        <span class="brand-text">Doubt<span class="brand-highlight">Drop</span></span>
+        <span class="brand-badge">College Q&A</span>
+      </a>
+
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm" id="myDoubtsNavBtn" title="View questions you asked or tracked">
+          📌 My Doubts
+        </button>
+        <button class="btn btn-secondary btn-sm" id="trackNavBtn" title="Lookup a question by ID">
+          🔍 Track
+        </button>
+        <button class="btn btn-secondary btn-sm" id="teacherNavBtn" title="Faculty login">
+          👨‍🏫 Teacher Portal
+        </button>
+        <button class="btn-icon" id="themeToggleBtn" title="Toggle dark/light theme" aria-label="Toggle theme">
+          🌙
+        </button>
+        <button class="btn btn-primary" id="askNavBtn">
+          ＋ Ask Anonymously
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div>
+      <div class="hero-tag">
+        <span class="pulse-dot"></span>
+        Anonymous Campus Learning Hub
+      </div>
+      <h1>
+        Ask freely.<br>
+        <span class="hero-gradient-text">Learn together.</span>
+      </h1>
+      <p class="hero-desc">
+        Never let hesitation slow down your learning. Drop your academic doubts 100% anonymously, upvote questions you have too, and get verified answers from professors and peers.
+      </p>
+
+      <div class="hero-cta">
+        <button class="btn btn-primary" id="askHeroBtn">
+          ＋ Drop an Anonymous Doubt
+        </button>
+        <a href="#doubtsSection" class="btn btn-secondary">
+          Explore Questions ↓
+        </a>
+      </div>
+
+      <div class="hero-meta">
+        <span>🔒 Zero personal identity tracked</span>
+        <span>🏷️ Unique tracking codes</span>
+        <span>👨‍🏫 Verified instructor answers</span>
+      </div>
+    </div>
+
+    <!-- Hero Showcase Card -->
+    <div class="hero-card">
+      <div class="card-header-bar">
+        <h3>✦ Live Campus Questions</h3>
+        <span class="live-indicator">
+          <span class="pulse-dot"></span> REAL-TIME FEED
+        </span>
+      </div>
+
+      <div class="showcase-doubt">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="badge-subject" data-subject="Data Structures">Data Structures</span>
+          <span style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">DD-194820</span>
+        </div>
+        <p class="showcase-title">When should I use LinkedList vs ArrayList in Java?</p>
+        <div class="showcase-footer">
+          <span>❤️ 31 helpful upvotes</span>
+          <span style="color:var(--success); font-weight:700;">✓ Instructor Answered</span>
+        </div>
+      </div>
+
+      <div class="showcase-doubt">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span class="badge-subject" data-subject="Java">Java</span>
+          <span style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">DD-482910</span>
+        </div>
+        <p class="showcase-title">Difference between '==' and '.equals()' in Java Strings?</p>
+        <div class="showcase-footer">
+          <span>❤️ 24 helpful upvotes</span>
+          <span style="color:var(--success); font-weight:700;">✓ Instructor Answered</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Ribbon -->
+  <section class="stats-ribbon">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-icon" style="background:#e0e7ff; color:#4f46e5;">📚</div>
+        <div>
+          <div class="stat-val" id="statTotal">—</div>
+          <div class="stat-lbl">Questions Shared</div>
+        </div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon" style="background:#dcfce7; color:#16a34a;">✅</div>
+        <div>
+          <div class="stat-val" id="statAnswered">—</div>
+          <div class="stat-lbl">Doubts Resolved</div>
+        </div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon" style="background:#fef3c7; color:#d97706;">⏳</div>
+        <div>
+          <div class="stat-val" id="statPending">—</div>
+          <div class="stat-lbl">Awaiting Faculty Reply</div>
+        </div>
+      </div>
+
+      <div class="stat-item">
+        <div class="stat-icon" style="background:#fee2e2; color:#dc2626;">❤️</div>
+        <div>
+          <div class="stat-val" id="statVotes">—</div>
+          <div class="stat-lbl">Community Upvotes</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Section: Feed & Filters -->
+  <main class="main-section" id="doubtsSection">
+    <div class="section-head">
+      <div class="section-title">
+        <h2>Community Doubts Feed</h2>
+        <p>Browse, upvote, and learn from real questions asked by your classmates.</p>
+      </div>
+
+      <button class="btn btn-primary" id="askFeedBtn">
+        ＋ Ask a Doubt
+      </button>
+    </div>
+
+    <div class="layout-grid">
+      <!-- Left Column: Search, Tabs & Doubt Feed -->
+      <section>
+        <!-- Toolbar Card -->
+        <div class="toolbar-card">
+          <div class="search-row">
+            <div class="search-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="searchInput" placeholder="Search doubts by title, concept, topic, or tracking code...">
+              <button class="search-clear" id="searchClear" title="Clear search">✕</button>
+            </div>
+
+            <select class="select-filter" id="subjectSelect" aria-label="Filter by subject">
+              <option value="">All Subjects</option>
+              <option value="Java">Java</option>
+              <option value="Data Structures">Data Structures</option>
+              <option value="Database">Database / DBMS</option>
+              <option value="Operating Systems">Operating Systems</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Web Development">Web Development</option>
+              <option value="Other">Other</option>
+            </select>
+
+            <select class="select-filter" id="sortSelect" aria-label="Sort order">
+              <option value="recent">Most Recent</option>
+              <option value="votes">Most Upvoted (Trending)</option>
+              <option value="oldest">Oldest First</option>
+            </select>
+          </div>
+
+          <!-- Filter Tabs -->
+          <div class="tabs-row">
+            <button class="tab-btn active" data-filter="all">
+              All Doubts <span class="tab-badge" id="countAll">0</span>
+            </button>
+            <button class="tab-btn" data-filter="trending">
+              🔥 Trending <span class="tab-badge" id="countTrending">0</span>
+            </button>
+            <button class="tab-btn" data-filter="pending">
+              ⏳ Needs Answer <span class="tab-badge" id="countPending">0</span>
+            </button>
+            <button class="tab-btn" data-filter="answered">
+              ✅ Answered <span class="tab-badge" id="countAnswered">0</span>
+            </button>
+            <button class="tab-btn" id="tabTeacherQueue" data-filter="teacher_queue" style="display:none; background:#7c3aed; color:#fff;">
+              👨‍🏫 Review Queue
+            </button>
+          </div>
+        </div>
+
+        <!-- Doubts List -->
+        <div class="doubt-feed" id="doubtFeed">
+          <div class="empty-state">
+            <div class="empty-icon">⏳</div>
+            <h3>Loading questions...</h3>
+            <p>Fetching the latest community questions and answers.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Sidebar -->
+      <aside class="sidebar">
+        <!-- Ask Card -->
+        <div class="side-card">
+          <h3>✍️ Have a Question?</h3>
+          <p>Don't stay stuck! Ask without showing your name or roll number. Your professors and peers are here to help.</p>
+          <button class="btn btn-primary" id="askSidebarBtn" style="width: 100%;">
+            Drop Anonymous Doubt →
+          </button>
+        </div>
+
+        <!-- Quick Track Widget -->
+        <div class="side-card">
+          <h3>🔍 Quick Track</h3>
+          <p>Already submitted a doubt? Enter your tracking ID to view the latest faculty response.</p>
+          <div class="track-widget-input">
+            <input type="text" id="quickTrackInput" placeholder="DD-123456">
+            <button class="btn btn-secondary btn-sm" onclick="trackDirect($('quickTrackInput').value.trim())">
+              Go
+            </button>
+          </div>
+        </div>
+
+        <!-- Instructor Portal Info -->
+        <div class="side-card">
+          <h3>👨‍🏫 Instructor Portal</h3>
+          <div class="teacher-status-banner">
+            <span>Status:</span>
+            <span><span class="teacher-status-dot inactive" id="teacherStatusDot"></span> <b id="teacherStatusText">Not logged in</b></span>
+          </div>
+          <p>Verified teachers can answer questions, change resolution status, and moderate posts.</p>
+          <button class="btn btn-secondary btn-sm" style="width: 100%;" onclick="openModal('teacherModal')">
+            Open Teacher Login
+          </button>
+          
+          <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text-light);">
+            Demo account: <code>teacher</code> / <code>ChangeMe123!</code>
+          </div>
+        </div>
+
+        <!-- Database Inspection Card -->
+        <div class="side-card" style="background: var(--bg-card-subtle);">
+          <h3>🗄️ Database Console</h3>
+          <p style="margin-bottom: 8px;">View SQL tables and verify JPA persistence in real-time:</p>
+          <a href="/h2-console" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="width: 100%; font-family: var(--font-mono); font-size: 0.775rem;">
+            Open /h2-console ↗
+          </a>
+          <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 6px;">
+            JDBC URL: <code>jdbc:h2:file:./data/doubtdrop_db</code><br>User: <code>sa</code> (Password empty)
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works-section">
+    <div class="section-title">
+      <h2>How DoubtDrop Works</h2>
+      <p>Three simple steps for better classroom collaboration.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h4>Ask Without Fear</h4>
+        <p>Pick your subject and describe your confusion. No name, email, or student roll number is ever saved or revealed.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h4>Surface Common Doubts</h4>
+        <p>Upvote questions your peers asked if you have the same doubt. Faculty can see what the class struggles with most.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h4>Track Verified Solutions</h4>
+        <p>Keep your unique 6-digit tracking code (e.g. DD-482910) to return and read clear, verified faculty answers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div>
+        <b>✦ DoubtDrop</b> — College Full-Stack Java Project &copy; 2026. Built with Spring Boot, Spring Data JPA, and H2/MySQL.
+      </div>
+      <div class="footer-links">
+        <a href="#doubtsSection">Browse Doubts</a>
+        <a href="#" onclick="openAskModal(); return false;">Ask Doubt</a>
+        <a href="#" onclick="openModal('trackModal'); return false;">Track ID</a>
+        <a href="/h2-console" target="_blank" rel="noopener">Database Console</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: Ask Anonymously -->
+  <div class="modal-overlay" id="askModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>✦ Drop an Anonymous Doubt</h3>
+        <button class="modal-close" data-close-modal aria-label="Close modal">✕</button>
+      </div>
+      <p class="modal-desc">
+        🔒 <b>Zero judgment space:</b> Your question is published anonymously. No name or student ID is recorded.
+      </p>
+
+      <form id="askForm">
+        <div class="form-group">
+          <label class="form-label" for="askSubject">
+            <span>Subject <span style="color:var(--danger)">*</span></span>
+          </label>
+          <select class="form-control" id="askSubject" required>
+            <option value="">Select subject...</option>
+            <option value="Java">Java</option>
+            <option value="Data Structures">Data Structures</option>
+            <option value="Database">Database / DBMS</option>
+            <option value="Operating Systems">Operating Systems</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="askTitle">
+            <span>Question Title <span style="color:var(--danger)">*</span></span>
+            <span class="char-counter" id="titleCount">0/160</span>
+          </label>
+          <input type="text" class="form-control" id="askTitle" maxlength="160" required placeholder="e.g. Why do we need functional interfaces in Java?">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="askDetails">
+            <span>Context / Details (Optional)</span>
+            <span class="char-counter" id="detailsCount">0/2000</span>
+          </label>
+          <textarea class="form-control" id="askDetails" maxlength="2000" placeholder="Provide extra context, error messages, or code snippet..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="askTopic">
+            <span>Topic Tag (Optional)</span>
+          </label>
+          <input type="text" class="form-control" id="askTopic" maxlength="60" placeholder="e.g. OOP, recursion, normalization, deadlock">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px;">
+          Submit Anonymously →
+        </button>
+      </form>
+
+      <!-- Created Result -->
+      <div class="modal-result" id="askResult">
+        <h4>🎉 Question Submitted Anonymously!</h4>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Save your unique tracking code below to check for answers:</p>
+        <span class="result-tracking-code" id="createdTrackingCode">DD-000000</span>
+        
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 14px;">
+          <button class="btn btn-primary btn-sm" id="copyResultBtn">
+            📋 Copy Tracking Code
+          </button>
+          <button class="btn btn-secondary btn-sm" data-close-modal>
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Track Doubt -->
+  <div class="modal-overlay" id="trackModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>🔍 Track Your Doubt</h3>
+        <button class="modal-close" data-close-modal aria-label="Close modal">✕</button>
+      </div>
+      <p class="modal-desc">Enter your 6-digit tracking code (e.g. <code>DD-482910</code>) to view the current status and faculty response.</p>
+
+      <form id="trackForm">
+        <div class="form-group">
+          <label class="form-label" for="trackCodeInput">Doubt Tracking Code</label>
+          <input type="text" class="form-control" id="trackCodeInput" placeholder="DD-123456" required style="font-family: var(--font-mono); font-size: 1.1rem; text-transform: uppercase;">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          Lookup Doubt →
+        </button>
+      </form>
+
+      <div class="modal-result" id="trackResult" style="margin-top: 16px;"></div>
+    </div>
+  </div>
+
+  <!-- Modal: My Saved Doubts -->
+  <div class="modal-overlay" id="myDoubtsModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>📌 My Saved & Tracked Doubts</h3>
+        <button class="modal-close" data-close-modal aria-label="Close modal">✕</button>
+      </div>
+      <p class="modal-desc">Doubts you have submitted or tracked from this browser:</p>
+      
+      <div id="myDoubtsList"></div>
+    </div>
+  </div>
+
+  <!-- Modal: Teacher Login -->
+  <div class="modal-overlay" id="teacherModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>👨‍🏫 Instructor / Teacher Portal</h3>
+        <button class="modal-close" data-close-modal aria-label="Close modal">✕</button>
+      </div>
+      <p class="modal-desc">Log in with your instructor credentials to answer questions, resolve doubts, and manage the discussion feed.</p>
+
+      <form id="teacherLoginForm">
+        <div class="form-group">
+          <label class="form-label" for="teacherUser">Username</label>
+          <input type="text" class="form-control" id="teacherUser" placeholder="teacher" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="teacherPass">Password</label>
+          <input type="password" class="form-control" id="teacherPass" placeholder="••••••••••••" required>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 18px;">
+          <button type="submit" class="btn btn-primary" style="flex: 1;">
+            Sign In as Instructor
+          </button>
+          <button type="button" class="btn btn-secondary" id="fillDemoBtn" title="Autofill default demo credentials">
+            Fill Demo
+          </button>
+        </div>
+      </form>
+
+      <div style="background: var(--bg-card-subtle); border-radius: var(--radius-md); padding: 12px; margin-top: 16px; font-size: 0.775rem; color: var(--text-muted);">
+        💡 <b>Demo Credentials:</b> Username: <code>teacher</code> &bull; Password: <code>ChangeMe123!</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Script -->
+  <script src="/js/app.js"></script>
+</body>
+</html>
